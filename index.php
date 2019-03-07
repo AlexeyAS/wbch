@@ -15,7 +15,6 @@ function parser($url, $start, $end){
     if($start < $end){
         $file = get_content($url);
         $doc = phpQuery::newDocument($file);
-
         foreach($doc->find('.pst-cn h3') as $sec){
             $sec = pq($sec);
             $link = $sec->find('a')->attr('href');
@@ -37,8 +36,12 @@ function parser($url, $start, $end){
 
 $url = 'https://www.webcamrips.com/page/1';
 $start = 0;
-$end = 2;
+$end = 10;
+file_put_contents("file.txt",'Дата ' . date('Y-m-d h:i:sa'), FILE_APPEND);
 parser($url, $start, $end);
+file_put_contents("file.txt",PHP_EOL, FILE_APPEND);
+
 
 //если мы хотим скачать только 1ю страницу, то start=0 end=1
 //не нравится - перепиши условее в строке 15 на <=
+//если не нужна дата - удали строку 40 и 42(последнюю)
